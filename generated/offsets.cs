@@ -1,6 +1,6 @@
 /*
  * Created using https://github.com/a2x/cs2-dumper
- * Sat, 17 Feb 2024 02:19:06 +0000
+ * Tue, 20 Feb 2024 13:08:00 +0000
  */
 
 public static class client_dll { // client.dll
@@ -46,9 +46,4 @@ public static class game_info { // Some additional information about the game at
 
 public static class inputsystem_dll { // inputsystem.dll
     public const nint dwInputSystem = 0x367A0;
-}
-
-public static class matchmaking_dll { // matchmaking.dll
-    public const nint dwGameTypes = 0x1D21E0;
-    public const nint dwGameTypes_mapName = 0x1D2300;
 }

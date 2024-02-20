@@ -1,6 +1,6 @@
 '''
 Created using https://github.com/a2x/cs2-dumper
-Sat, 17 Feb 2024 02:19:06 +0000
+Tue, 20 Feb 2024 13:08:00 +0000
 '''
 
 class client_dll: # client.dll
@@ -43,7 +43,3 @@ class game_info: # Some additional information about the game at dump time
 
 class inputsystem_dll: # inputsystem.dll
     dwInputSystem = 0x367A0
-
-class matchmaking_dll: # matchmaking.dll
-    dwGameTypes = 0x1D21E0
-    dwGameTypes_mapName = 0x1D2300

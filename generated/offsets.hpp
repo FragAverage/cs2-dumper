@@ -1,6 +1,6 @@
 /*
  * Created using https://github.com/a2x/cs2-dumper
- * Sat, 17 Feb 2024 02:19:06 +0000
+ * Tue, 20 Feb 2024 13:08:00 +0000
  */
 
 #pragma once
@@ -50,9 +50,4 @@ namespace game_info { // Some additional information about the game at dump time
 
 namespace inputsystem_dll { // inputsystem.dll
     constexpr std::ptrdiff_t dwInputSystem = 0x367A0;
-}
-
-namespace matchmaking_dll { // matchmaking.dll
-    constexpr std::ptrdiff_t dwGameTypes = 0x1D21E0;
-    constexpr std::ptrdiff_t dwGameTypes_mapName = 0x1D2300;
 }

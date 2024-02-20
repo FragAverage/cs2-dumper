@@ -1,6 +1,6 @@
 /*
  * Created using https://github.com/a2x/cs2-dumper
- * Sat, 17 Feb 2024 02:19:06 +0000
+ * Tue, 20 Feb 2024 13:08:00 +0000
  */
 
 #![allow(non_snake_case, non_upper_case_globals)]
@@ -48,9 +48,4 @@ pub mod game_info { // Some additional information about the game at dump time
 
 pub mod inputsystem_dll { // inputsystem.dll
     pub const dwInputSystem: usize = 0x367A0;
-}
-
-pub mod matchmaking_dll { // matchmaking.dll
-    pub const dwGameTypes: usize = 0x1D21E0;
-    pub const dwGameTypes_mapName: usize = 0x1D2300;
 }
