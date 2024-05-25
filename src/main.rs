@@ -1,5 +1,5 @@
-use std::env;
 use std::path::PathBuf;
+use std::str::FromStr;
 use std::time::Instant;
 
 use clap::*;
@@ -11,105 +11,55 @@ use memflow::prelude::v1::*;
 use simplelog::{ColorChoice, TermLogger};
 
 use error::Result;
-use output::Results;
+use output::Output;
 
 mod analysis;
 mod error;
+mod mem;
 mod output;
 mod source2;
 
-const PROCESS_NAME: &str = "cs2.exe";
+#[derive(Debug, Parser)]
+#[command(author, version)]
+struct Args {
+    /// The name of the memflow connector to use.
+    #[arg(short, long)]
+    connector: Option<String>,
+
+    /// Additional arguments to pass to the memflow connector.
+    #[arg(short = 'a', long)]
+    connector_args: Option<String>,
+
+    /// The types of files to generate.
+    #[arg(short, long, value_delimiter = ',', default_values = ["cs", "hpp", "json", "rs"])]
+    file_types: Vec<String>,
+
+    /// The number of spaces to use per indentation level.
+    #[arg(short, long, default_value_t = 4)]
+    indent_size: usize,
+
+    /// The output directory to write the generated files to.
+    #[arg(short, long, default_value = "output")]
+    output: PathBuf,
+
+    /// The name of the game process.
+    #[arg(short, long, default_value = "cs2.exe")]
+    process_name: String,
+
+    /// Increase logging verbosity. Can be specified multiple times.
+    #[arg(short, action = ArgAction::Count)]
+    verbose: u8,
+}
 
 fn main() -> Result<()> {
-    let start_time = Instant::now();
+    let args = Args::parse();
+    let now = Instant::now();
 
-    let matches = parse_args();
-    let (conn_name, conn_args, indent_size, out_dir) = extract_args(&matches)?;
-
-    let os = if let Some(conn_name) = conn_name {
-        let inventory = Inventory::scan();
-
-        inventory
-            .builder()
-            .connector(&conn_name)
-            .args(conn_args)
-            .os("win32")
-            .build()?
-    } else {
-        // Fallback to the native OS layer if no connector name was provided.
-        memflow_native::create_os(&Default::default(), Default::default())?
-    };
-
-    let mut process = os.into_process_by_name(PROCESS_NAME)?;
-
-    let buttons = analysis::buttons(&mut process)?;
-    let interfaces = analysis::interfaces(&mut process)?;
-    let offsets = analysis::offsets(&mut process)?;
-    let schemas = analysis::schemas(&mut process)?;
-
-    let results = Results::new(buttons, interfaces, offsets, schemas);
-
-    results.dump_all(&mut process, &out_dir, indent_size)?;
-
-    info!("finished in {:?}", start_time.elapsed());
-
-    Ok(())
-}
-
-fn parse_args() -> ArgMatches {
-    Command::new("cs2-dumper")
-        .version(crate_version!())
-        .author(crate_authors!())
-        .arg(
-            Arg::new("verbose")
-                .help("Increase logging verbosity. Can be specified multiple times.")
-                .short('v')
-                .action(ArgAction::Count),
-        )
-        .arg(
-            Arg::new("connector")
-                .help("The name of the memflow connector to use.")
-                .long("connector")
-                .short('c')
-                .required(false),
-        )
-        .arg(
-            Arg::new("connector-args")
-                .help("Additional arguments to supply to the connector.")
-                .long("connector-args")
-                .short('a')
-                .required(false),
-        )
-        .arg(
-            Arg::new("output")
-                .help("The output directory to write the generated files to.")
-                .long("output")
-                .short('o')
-                .default_value("output")
-                .value_parser(value_parser!(PathBuf))
-                .required(false),
-        )
-        .arg(
-            Arg::new("indent-size")
-                .help("The number of spaces to use per indentation level.")
-                .long("indent-size")
-                .short('i')
-                .default_value("4")
-                .value_parser(value_parser!(usize))
-                .required(false),
-        )
-        .get_matches()
-}
-
-fn extract_args(matches: &ArgMatches) -> Result<(Option<String>, ConnectorArgs, usize, &PathBuf)> {
-    use std::str::FromStr;
-
-    let log_level = match matches.get_count("verbose") {
+    let log_level = match args.verbose {
         0 => Level::Error,
         1 => Level::Warn,
         2 => Level::Info,
         3 => Level::Debug,
-        4 => Level::Trace,
         _ => Level::Trace,
     };
 
@@ -121,17 +71,33 @@ fn extract_args(matches: &ArgMatches) -> Result<(Option<String>, ConnectorArgs, 
     )
     .unwrap();
 
-    let conn_name = matches
-        .get_one::<String>("connector")
-        .map(|s| s.to_string());
-
-    let conn_args = matches
-        .get_one::<String>("connector-args")
+    let conn_args = args
+        .connector_args
         .map(|s| ConnectorArgs::from_str(&s).expect("unable to parse connector arguments"))
         .unwrap_or_default();
 
-    let indent_size = *matches.get_one::<usize>("indent-size").unwrap();
-    let out_dir = matches.get_one::<PathBuf>("output").unwrap();
+    let os = if let Some(conn) = args.connector {
+        let inventory = Inventory::scan();
 
-    Ok((conn_name, conn_args, indent_size, out_dir))
+        inventory
+            .builder()
+            .connector(&conn)
+            .args(conn_args)
+            .os("win32")
+            .build()?
+    } else {
+        // Fallback to the native OS layer if no connector name was specified.
+        memflow_native::create_os(&Default::default(), Default::default())?
+    };
+
+    let mut process = os.into_process_by_name(&args.process_name)?;
+
+    let result = analysis::analyze_all(&mut process)?;
+    let output = Output::new(&args.file_types, args.indent_size, &args.output, &result)?;
+
+    output.dump_all(&mut process)?;
+
+    info!("finished in {:?}", now.elapsed());
+
+    Ok(())
 }

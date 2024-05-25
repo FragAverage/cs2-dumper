@@ -3,16 +3,16 @@ use memflow::prelude::v1::*;
 use crate::error::{Error, Result};
 
 #[repr(C)]
-pub struct UtlVector<T> {
-    pub size: i32,           // 0x0000
-    pad_0004: [u8; 0x4],     // 0x0004
-    pub mem: Pointer64<[T]>, // 0x0008
+pub struct UtlMemory<T> {
+    pub mem: Pointer64<[T]>, // 0x0000
+    pub alloc_count: i32,    // 0x0008
+    pub grow_size: i32,      // 0x000C
 }
 
-impl<T: Pod> UtlVector<T> {
+impl<T: Pod> UtlMemory<T> {
     #[inline]
     pub fn count(&self) -> i32 {
-        self.size
+        self.alloc_count
     }
 
     pub fn element(&self, process: &mut IntoProcessInstanceArcBox<'_>, idx: usize) -> Result<T> {
@@ -22,6 +22,11 @@ impl<T: Pod> UtlVector<T> {
 
         self.mem.at(idx as _).read(process).map_err(Into::into)
     }
+
+    #[inline]
+    pub fn is_externally_allocated(&self) -> bool {
+        self.grow_size < 0
+    }
 }
 
-unsafe impl<T: 'static> Pod for UtlVector<T> {}
+unsafe impl<T: 'static> Pod for UtlMemory<T> {}

@@ -1,5 +1,5 @@
 // Generated using https://github.com/a2x/cs2-dumper
-// 2024-04-02 16:10:48.961749300 UTC
+// 2024-05-25 01:48:22.657979400 UTC
 
 #pragma once
 
@@ -20,54 +20,6 @@ namespace cs2_dumper {
                 kDisableShadows_Realtime = 0x3
             };
             // Parent: None
-            // Fields count: 2
-            //
-            // Metadata:
-            // MGetKV3ClassDefaults
-            namespace CSSDSEndFrameViewInfo {
-                constexpr std::ptrdiff_t m_nViewId = 0x0; // uint64
-                constexpr std::ptrdiff_t m_ViewName = 0x8; // CUtlString
-            }
-            // Parent: None
-            // Fields count: 1
-            //
-            // Metadata:
-            // MGetKV3ClassDefaults
-            namespace CSSDSMsg_EndFrame {
-                constexpr std::ptrdiff_t m_Views = 0x0; // CUtlVector<CSSDSEndFrameViewInfo>
-            }
-            // Parent: None
-            // Fields count: 2
-            //
-            // Metadata:
-            // MGetKV3ClassDefaults
-            namespace SceneViewId_t {
-                constexpr std::ptrdiff_t m_nViewId = 0x0; // uint64
-                constexpr std::ptrdiff_t m_nFrameCount = 0x8; // uint64
-            }
-            // Parent: None
-            // Fields count: 2
-            //
-            // Metadata:
-            // MGetKV3ClassDefaults
-            namespace CSSDSMsg_ViewRender {
-                constexpr std::ptrdiff_t m_viewId = 0x0; // SceneViewId_t
-                constexpr std::ptrdiff_t m_ViewName = 0x10; // CUtlString
-            }
-            // Parent: None
-            // Fields count: 6
-            //
-            // Metadata:
-            // MGetKV3ClassDefaults
-            namespace CSSDSMsg_LayerBase {
-                constexpr std::ptrdiff_t m_viewId = 0x0; // SceneViewId_t
-                constexpr std::ptrdiff_t m_ViewName = 0x10; // CUtlString
-                constexpr std::ptrdiff_t m_nLayerIndex = 0x18; // int32
-                constexpr std::ptrdiff_t m_nLayerId = 0x20; // uint64
-                constexpr std::ptrdiff_t m_LayerName = 0x28; // CUtlString
-                constexpr std::ptrdiff_t m_displayText = 0x30; // CUtlString
-            }
-            // Parent: None
             // Fields count: 10
             //
             // Metadata:
@@ -85,6 +37,51 @@ namespace cs2_dumper {
                 constexpr std::ptrdiff_t m_nFormat = 0x2C; // int32
             }
             // Parent: None
+            // Fields count: 2
+            //
+            // Metadata:
+            // MGetKV3ClassDefaults
+            namespace SceneViewId_t {
+                constexpr std::ptrdiff_t m_nViewId = 0x0; // uint64
+                constexpr std::ptrdiff_t m_nFrameCount = 0x8; // uint64
+            }
+            // Parent: None
+            // Fields count: 2
+            //
+            // Metadata:
+            // MGetKV3ClassDefaults
+            namespace CSSDSEndFrameViewInfo {
+                constexpr std::ptrdiff_t m_nViewId = 0x0; // uint64
+                constexpr std::ptrdiff_t m_ViewName = 0x8; // CUtlString
+            }
+            // Parent: CSSDSMsg_LayerBase
+            // Fields count: 0
+            //
+            // Metadata:
+            // MGetKV3ClassDefaults
+            namespace CSSDSMsg_PostLayer {
+            }
+            // Parent: None
+            // Fields count: 6
+            //
+            // Metadata:
+            // MGetKV3ClassDefaults
+            namespace CSSDSMsg_LayerBase {
+                constexpr std::ptrdiff_t m_viewId = 0x0; // SceneViewId_t
+                constexpr std::ptrdiff_t m_ViewName = 0x10; // CUtlString
+                constexpr std::ptrdiff_t m_nLayerIndex = 0x18; // int32
+                constexpr std::ptrdiff_t m_nLayerId = 0x20; // uint64
+                constexpr std::ptrdiff_t m_LayerName = 0x28; // CUtlString
+                constexpr std::ptrdiff_t m_displayText = 0x30; // CUtlString
+            }
+            // Parent: CSSDSMsg_LayerBase
+            // Fields count: 0
+            //
+            // Metadata:
+            // MGetKV3ClassDefaults
+            namespace CSSDSMsg_PreLayer {
+            }
+            // Parent: None
             // Fields count: 3
             //
             // Metadata:
@@ -94,19 +91,22 @@ namespace cs2_dumper {
                 constexpr std::ptrdiff_t m_ViewName = 0x10; // CUtlString
                 constexpr std::ptrdiff_t m_Targets = 0x18; // CUtlVector<CSSDSMsg_ViewTarget>
             }
-            // Parent: CSSDSMsg_LayerBase
-            // Fields count: 0
+            // Parent: None
+            // Fields count: 2
             //
             // Metadata:
             // MGetKV3ClassDefaults
-            namespace CSSDSMsg_PreLayer {
+            namespace CSSDSMsg_ViewRender {
+                constexpr std::ptrdiff_t m_viewId = 0x0; // SceneViewId_t
+                constexpr std::ptrdiff_t m_ViewName = 0x10; // CUtlString
             }
-            // Parent: CSSDSMsg_LayerBase
-            // Fields count: 0
+            // Parent: None
+            // Fields count: 1
             //
             // Metadata:
             // MGetKV3ClassDefaults
-            namespace CSSDSMsg_PostLayer {
+            namespace CSSDSMsg_EndFrame {
+                constexpr std::ptrdiff_t m_Views = 0x0; // CUtlVector<CSSDSEndFrameViewInfo>
             }
         }
     }

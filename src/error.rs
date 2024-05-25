@@ -1,5 +1,7 @@
 use thiserror::Error;
 
+pub type Result<T> = std::result::Result<T, Error>;
+
 #[derive(Debug, Error)]
 pub enum Error {
     #[error(transparent)]
@@ -17,9 +19,6 @@ pub enum Error {
     #[error(transparent)]
     Serde(#[from] serde_json::Error),
 
-    #[error("index {idx} is out of bounds for array with length {len}")]
-    OutOfBounds { idx: usize, len: usize },
-
     #[error("{0}")]
     Other(&'static str),
 }
@@ -30,5 +29,3 @@ impl<T> From<memflow::error::PartialError<T>> for Error {
         Error::Memflow(err.into())
     }
 }
-
-pub type Result<T> = std::result::Result<T, Error>;

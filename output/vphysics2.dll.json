@@ -912,6 +912,11 @@
         ],
         "parent": null
       },
+      "IPhysicsPlayerController": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
       "OldFeEdge_t": {
         "fields": {
           "c01": 28,
@@ -1010,6 +1015,7 @@
           "m_flInternalPressure": 1496,
           "m_flLocalForce": 56,
           "m_flLocalRotation": 60,
+          "m_flMotionSmoothCDT": 1556,
           "m_flQuadVelocitySmoothRate": 1544,
           "m_flRodVelocitySmoothRate": 1540,
           "m_flWindDrag": 1508,
@@ -1023,9 +1029,9 @@
           "m_nNodeCount": 64,
           "m_nQuadCount1": 80,
           "m_nQuadCount2": 82,
-          "m_nQuadVelocitySmoothIterations": 1558,
+          "m_nQuadVelocitySmoothIterations": 1562,
           "m_nReservedUint8": 1180,
-          "m_nRodVelocitySmoothIterations": 1556,
+          "m_nRodVelocitySmoothIterations": 1560,
           "m_nRopeCount": 88,
           "m_nRotLockStaticNodes": 68,
           "m_nSimdQuadCount1": 76,
@@ -1360,6 +1366,52 @@
             "type": "Unknown"
           }
         ],
+        "parent": null
+      },
+      "VertexPositionColor_t": {
+        "fields": {
+          "m_vPosition": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "VertexPositionNormal_t": {
+        "fields": {
+          "m_vNormal": 12,
+          "m_vPosition": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "constraint_axislimit_t": {
+        "fields": {
+          "flMaxRotation": 4,
+          "flMinRotation": 0,
+          "flMotorMaxTorque": 12,
+          "flMotorTargetAngSpeed": 8
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "constraint_breakableparams_t": {
+        "fields": {
+          "bodyMassScale": 12,
+          "forceLimit": 4,
+          "isActive": 20,
+          "strength": 0,
+          "torqueLimit": 8
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "constraint_hingeparams_t": {
+        "fields": {
+          "constraint": 40,
+          "hingeAxis": 24,
+          "worldAxisDirection": 12,
+          "worldPosition": 0
+        },
+        "metadata": [],
         "parent": null
       },
       "vphysics_save_cphysicsbody_t": {

@@ -1,15 +1,9 @@
 use std::fmt::{self, Write};
 
-#[derive(Debug)]
 pub struct Formatter<'a> {
-    /// Write destination.
-    pub out: &'a mut String,
-
-    /// Number of spaces per indentation level.
-    pub indent_size: usize,
-
-    /// Current indentation level.
-    pub indent_level: usize,
+    out: &'a mut String,
+    indent_size: usize,
+    indent_level: usize,
 }
 
 impl<'a> Formatter<'a> {
@@ -21,6 +15,7 @@ impl<'a> Formatter<'a> {
         }
     }
 
+    // TODO: Refactor this.
     pub fn block<F>(&mut self, heading: &str, semicolon: bool, f: F) -> fmt::Result
     where
         F: FnOnce(&mut Self) -> fmt::Result,
@@ -34,17 +29,17 @@ impl<'a> Formatter<'a> {
         Ok(())
     }
 
-    pub fn indent<F, R>(&mut self, f: F) -> R
+    pub fn indent<F>(&mut self, f: F) -> fmt::Result
     where
-        F: FnOnce(&mut Self) -> R,
+        F: FnOnce(&mut Self) -> fmt::Result,
     {
         self.indent_level += 1;
 
-        let ret = f(self);
+        f(self)?;
 
         self.indent_level -= 1;
 
-        ret
+        Ok(())
     }
 
     #[inline]

@@ -1,7 +1,7 @@
 // Generated using https://github.com/a2x/cs2-dumper
-// 2024-04-02 16:10:48.961749300 UTC
+// 2024-05-25 01:48:22.657979400 UTC
 
-#![allow(non_upper_case_globals, non_camel_case_types, unused)]
+#![allow(non_upper_case_globals, non_camel_case_types, non_snake_case, unused)]
 
 pub mod cs2_dumper {
     pub mod schemas {
@@ -17,54 +17,6 @@ pub mod cs2_dumper {
                 kDisableShadows_All = 0x1,
                 kDisableShadows_Baked = 0x2,
                 kDisableShadows_Realtime = 0x3
-            }
-            // Parent: None
-            // Fields count: 2
-            //
-            // Metadata:
-            // MGetKV3ClassDefaults
-            pub mod CSSDSEndFrameViewInfo {
-                pub const m_nViewId: usize = 0x0; // uint64
-                pub const m_ViewName: usize = 0x8; // CUtlString
-            }
-            // Parent: None
-            // Fields count: 1
-            //
-            // Metadata:
-            // MGetKV3ClassDefaults
-            pub mod CSSDSMsg_EndFrame {
-                pub const m_Views: usize = 0x0; // CUtlVector<CSSDSEndFrameViewInfo>
-            }
-            // Parent: None
-            // Fields count: 2
-            //
-            // Metadata:
-            // MGetKV3ClassDefaults
-            pub mod SceneViewId_t {
-                pub const m_nViewId: usize = 0x0; // uint64
-                pub const m_nFrameCount: usize = 0x8; // uint64
-            }
-            // Parent: None
-            // Fields count: 2
-            //
-            // Metadata:
-            // MGetKV3ClassDefaults
-            pub mod CSSDSMsg_ViewRender {
-                pub const m_viewId: usize = 0x0; // SceneViewId_t
-                pub const m_ViewName: usize = 0x10; // CUtlString
-            }
-            // Parent: None
-            // Fields count: 6
-            //
-            // Metadata:
-            // MGetKV3ClassDefaults
-            pub mod CSSDSMsg_LayerBase {
-                pub const m_viewId: usize = 0x0; // SceneViewId_t
-                pub const m_ViewName: usize = 0x10; // CUtlString
-                pub const m_nLayerIndex: usize = 0x18; // int32
-                pub const m_nLayerId: usize = 0x20; // uint64
-                pub const m_LayerName: usize = 0x28; // CUtlString
-                pub const m_displayText: usize = 0x30; // CUtlString
             }
             // Parent: None
             // Fields count: 10
@@ -84,6 +36,51 @@ pub mod cs2_dumper {
                 pub const m_nFormat: usize = 0x2C; // int32
             }
             // Parent: None
+            // Fields count: 2
+            //
+            // Metadata:
+            // MGetKV3ClassDefaults
+            pub mod SceneViewId_t {
+                pub const m_nViewId: usize = 0x0; // uint64
+                pub const m_nFrameCount: usize = 0x8; // uint64
+            }
+            // Parent: None
+            // Fields count: 2
+            //
+            // Metadata:
+            // MGetKV3ClassDefaults
+            pub mod CSSDSEndFrameViewInfo {
+                pub const m_nViewId: usize = 0x0; // uint64
+                pub const m_ViewName: usize = 0x8; // CUtlString
+            }
+            // Parent: CSSDSMsg_LayerBase
+            // Fields count: 0
+            //
+            // Metadata:
+            // MGetKV3ClassDefaults
+            pub mod CSSDSMsg_PostLayer {
+            }
+            // Parent: None
+            // Fields count: 6
+            //
+            // Metadata:
+            // MGetKV3ClassDefaults
+            pub mod CSSDSMsg_LayerBase {
+                pub const m_viewId: usize = 0x0; // SceneViewId_t
+                pub const m_ViewName: usize = 0x10; // CUtlString
+                pub const m_nLayerIndex: usize = 0x18; // int32
+                pub const m_nLayerId: usize = 0x20; // uint64
+                pub const m_LayerName: usize = 0x28; // CUtlString
+                pub const m_displayText: usize = 0x30; // CUtlString
+            }
+            // Parent: CSSDSMsg_LayerBase
+            // Fields count: 0
+            //
+            // Metadata:
+            // MGetKV3ClassDefaults
+            pub mod CSSDSMsg_PreLayer {
+            }
+            // Parent: None
             // Fields count: 3
             //
             // Metadata:
@@ -93,19 +90,22 @@ pub mod cs2_dumper {
                 pub const m_ViewName: usize = 0x10; // CUtlString
                 pub const m_Targets: usize = 0x18; // CUtlVector<CSSDSMsg_ViewTarget>
             }
-            // Parent: CSSDSMsg_LayerBase
-            // Fields count: 0
+            // Parent: None
+            // Fields count: 2
             //
             // Metadata:
             // MGetKV3ClassDefaults
-            pub mod CSSDSMsg_PreLayer {
+            pub mod CSSDSMsg_ViewRender {
+                pub const m_viewId: usize = 0x0; // SceneViewId_t
+                pub const m_ViewName: usize = 0x10; // CUtlString
             }
-            // Parent: CSSDSMsg_LayerBase
-            // Fields count: 0
+            // Parent: None
+            // Fields count: 1
             //
             // Metadata:
             // MGetKV3ClassDefaults
-            pub mod CSSDSMsg_PostLayer {
+            pub mod CSSDSMsg_EndFrame {
+                pub const m_Views: usize = 0x0; // CUtlVector<CSSDSEndFrameViewInfo>
             }
         }
     }

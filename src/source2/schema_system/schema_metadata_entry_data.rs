@@ -2,20 +2,18 @@ use std::ffi::c_char;
 
 use memflow::prelude::v1::*;
 
+#[derive(Pod)]
 #[repr(C)]
 pub struct SchemaMetadataEntryData {
-    pub name: Pointer64<ReprCString>,
-    pub network_value: Pointer64<SchemaNetworkValue>,
+    pub name: Pointer64<ReprCString>,        // 0x0000
+    pub data: Pointer64<SchemaNetworkValue>, // 0x0008
 }
 
-unsafe impl Pod for SchemaMetadataEntryData {}
-
+#[derive(Pod)]
 #[repr(C)]
 pub struct SchemaNetworkValue {
-    pub u: SchemaNetworkValueUnion,
+    pub value: SchemaNetworkValueUnion, // 0x0000
 }
-
-unsafe impl Pod for SchemaNetworkValue {}
 
 #[repr(C)]
 pub union SchemaNetworkValueUnion {
@@ -27,9 +25,11 @@ pub union SchemaNetworkValueUnion {
     pub name_value: [c_char; 32],
 }
 
-#[derive(Clone, Copy)]
+unsafe impl Pod for SchemaNetworkValueUnion {}
+
+#[derive(Clone, Copy, Pod)]
 #[repr(C)]
 pub struct SchemaVarName {
-    pub name: Pointer64<ReprCString>,
-    pub ty: Pointer64<ReprCString>,
+    pub name: Pointer64<ReprCString>,      // 0x0000
+    pub type_name: Pointer64<ReprCString>, // 0x0008
 }

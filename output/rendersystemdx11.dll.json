@@ -1,6 +1,37 @@
 {
   "rendersystemdx11.dll": {
-    "classes": {},
+    "classes": {
+      "RenderInputLayoutField_t": {
+        "fields": {
+          "m_Format": 36,
+          "m_nInstanceStepRate": 52,
+          "m_nOffset": 40,
+          "m_nSemanticIndex": 32,
+          "m_nSlot": 44,
+          "m_nSlotType": 48,
+          "m_pSemanticName": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "VsInputSignatureElement_t": {
+        "fields": {
+          "m_nD3DSemanticIndex": 192,
+          "m_pD3DSemanticName": 128,
+          "m_pName": 0,
+          "m_pSemantic": 64
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "VsInputSignature_t": {
+        "fields": {
+          "m_elems": 0
+        },
+        "metadata": [],
+        "parent": null
+      }
+    },
     "enums": {
       "InputLayoutVariation_t": {
         "alignment": 4,
@@ -19,6 +50,7 @@
           "RENDER_BUFFER_APPEND_CONSUME_BUFFER": 64,
           "RENDER_BUFFER_BYTEADDRESS_BUFFER": 16,
           "RENDER_BUFFER_PER_FRAME_WRITE_ONCE": 2048,
+          "RENDER_BUFFER_POOL_ALLOCATED": 4096,
           "RENDER_BUFFER_SHADER_BINDING_TABLE": 1024,
           "RENDER_BUFFER_STRUCTURED_BUFFER": 32,
           "RENDER_BUFFER_UAV_COUNTER": 128,
